@@ -38,7 +38,9 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $type = Type::create([
+            'name' => $request->input('name')
+        ]);
     }
 
     /**

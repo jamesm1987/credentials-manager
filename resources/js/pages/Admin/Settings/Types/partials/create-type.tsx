@@ -15,7 +15,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
-export function CreateClientModal() {
+export function CreateTypeModal() {
   const [open, setOpen] = React.useState(false)
   const [name, setName] = React.useState("")
   const isDesktop = useMediaQuery("(min-width: 768px)")
@@ -23,12 +23,12 @@ export function CreateClientModal() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
-    router.post("/clients", { name }, {
+    router.post("/admin/settings/types", { name }, {
       onSuccess: () => {
         setOpen(false)
         setName("")
-        // Optionally redirect to edit page if backend returns `client.id`
-        // router.visit(`/clients/${newClientId}/edit`)
+        // Optionally redirect to edit page if backend returns `type.id`
+        // router.visit(`/admin/setings/types/${newTypeId}/edit`)
       },
     })
   }
@@ -52,13 +52,13 @@ export function CreateClientModal() {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button>Create Client</Button>
+          <Button>Create Type</Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Create Client</DialogTitle>
+            <DialogTitle>Create Type</DialogTitle>
             <DialogDescription>
-              Enter the client name
+              Enter the type name
             </DialogDescription>
           </DialogHeader>
           {Form}
@@ -70,13 +70,13 @@ export function CreateClientModal() {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button>Create Client</Button>
+        <Button>Create Type</Button>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="text-left">
-          <DrawerTitle>Create Client</DrawerTitle>
+          <DrawerTitle>Create Type</DrawerTitle>
           <DrawerDescription>
-            Enter the client name
+            Enter the type name
           </DrawerDescription>
         </DrawerHeader>
         {Form}

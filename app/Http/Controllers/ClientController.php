@@ -21,7 +21,7 @@ class ClientController extends Controller
         $client = Client::create([
             'name' => $request->input('name')
         ]);
-        dd($client);
+
         // return Inertia::render('Clients', [
         //     'client' => $client,
         // ]);
