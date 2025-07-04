@@ -24,7 +24,7 @@ export function CreateClientModal() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
-    router.post("/admin/clients", { name }, {
+    router.post("/clients", { name }, {
       onSuccess: () => {
         setOpen(false)
         setName("")

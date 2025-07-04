@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -10,7 +10,7 @@ use Inertia\Response;
 use App\Models\Client;
 
 
-class FieldController extends Controller
+class ClientController extends Controller
 {
 
     /**
@@ -21,10 +21,10 @@ class FieldController extends Controller
         $client = Client::create([
             'name' => $request->input('name')
         ]);
-
-        return Inertia::render('Dashboard/Index', [
-            'clients' => $clients,
-        ]);
+        dd($client);
+        // return Inertia::render('Clients', [
+        //     'client' => $client,
+        // ]);
     }
 
     /**

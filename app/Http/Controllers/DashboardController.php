@@ -14,11 +14,16 @@ class DashboardController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $clients = Client::all();
+        $query = Client::query();
+
+        if  ($request->filled('s') ) {
+
+        }
+
         return Inertia::render('Dashboard/Index', [
-            'clients' => $clients,
+            'clients' => $query->get(),
         ]);
     }
 

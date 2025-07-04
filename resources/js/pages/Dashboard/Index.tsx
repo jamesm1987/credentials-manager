@@ -5,6 +5,7 @@ import { Head } from '@inertiajs/react';
 import { columns } from './columns';
 import { DataTable } from '@/components/ui/data-table';
 import { CreateClientModal } from './partials/create-client'
+import { Input } from '@/components/ui/input';
 
 
 interface IndexProps {
@@ -26,9 +27,14 @@ export default function Index({ clients }: IndexProps) {
 
             <div className="py-12">
                 <Head title="Clients" />
-                <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <div className="flex gap-4 mb-4">
-                        <CreateClientModal />
+                <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 flex flex-col gap-4">
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                            <Input type="text" placeholder="Search clients" />
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <CreateClientModal />
+                        </div>
                     </div>
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <DataTable columns={columns} data={clients} />
