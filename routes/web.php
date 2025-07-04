@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 use App\Http\Controllers\Admin\TypeController;
+use App\Http\Controllers\Admin\FieldController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ClientController;
 
@@ -18,7 +19,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::prefix('settings')->name('settings.')->group(function(){    
             Route::resource('types', TypeController::class);
-            Route::resource('fields', TypeController::class);
+            Route::resource('fields', FieldController::class);
         });
     });
 });
