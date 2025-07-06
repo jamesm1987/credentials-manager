@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
-use App\Models\Admin\Field;
+use App\Models\Field;
 
 class FieldController extends Controller
 {
@@ -39,7 +39,9 @@ class FieldController extends Controller
     public function store(Request $request)
     {
         $type = Field::create([
-            'name' => $request->input('name')
+            'label' => $request->input('label'),
+            'name' => $request->input('name'),
+            'type' => $request->input('type'),
         ]);
     }
 

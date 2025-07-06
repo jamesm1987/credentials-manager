@@ -1,6 +1,6 @@
 "use client"
 
-import * as React from "react"
+import * as React from "react";
 
 import {
   ColumnDef,
@@ -13,7 +13,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table"
+} from "@tanstack/react-table";
 
 import {
   Table,
@@ -22,7 +22,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 
 import { DataTablePagination } from "@/components/ui/data-table-pagination";
 

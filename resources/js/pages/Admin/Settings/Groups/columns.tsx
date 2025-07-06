@@ -1,6 +1,6 @@
 "use client";
 
-import type { Client } from '@/types';
+import type { Group } from '@/types';
 import type { ColumnDef } from '@tanstack/react-table';
 
 import { MoreHorizontal } from "lucide-react";
@@ -17,7 +17,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export const columns = ({ onViewClient }: { onViewClient: (client: Client) => void }): ColumnDef<Client>[] => [
+export const columns: ColumnDef<Group>[] = [
   {
     accessorKey: 'name',
     header: 'Name',
@@ -25,7 +25,7 @@ export const columns = ({ onViewClient }: { onViewClient: (client: Client) => vo
   {
     id: 'actions',
     cell: ({ row }) => {
-      const client = row.original;
+      const type = row.original;
 
       return (
         <DropdownMenu>
@@ -38,10 +38,6 @@ export const columns = ({ onViewClient }: { onViewClient: (client: Client) => vo
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() => onViewClient(client)}>
-              View
-            </DropdownMenuItem>
             <DropdownMenuItem>Edit</DropdownMenuItem>
             <DropdownMenuItem className="text-red-500">Delete</DropdownMenuItem>
           </DropdownMenuContent>

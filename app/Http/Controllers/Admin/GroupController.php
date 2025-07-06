@@ -10,21 +10,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
-use App\Models\Type;
-use App\Models\Field;
+use App\Models\Group;
 
-class TypeController extends Controller
+class GroupController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $types = Type::with('fields')->get();
-        $fields = Field::all();
-        return Inertia::render('Admin/Settings/Types/Index', [
-            'types' => $types,
-            'fields' => $fields
+        $groups = Group::all();
+        return Inertia::render('Admin/Settings/Groups/Index', [
+            'groups' => $groups,
         ]);
     }
 
@@ -41,8 +38,10 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-        $type = Type::create([
-            'name' => $request->input('name')
+        $group = Group::create([
+            'label'       => $request->input('label'),
+            'name'        => $request->input('name'),
+            'description' => $request->input('description'),
         ]);
     }
 
@@ -65,16 +64,9 @@ class TypeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Type $type)
+    public function update(Request $request, string $id)
     {
-        $validated = $request->validate([
-            'fields' => ['array'],
-            'fields.*' => ['integer', 'exists:fields,id'],
-        ]);
-
-        $type->fields()->sync($validated['fields']);
-
-        return back(); // Or inertia redirect
+        //
     }
 
     /**

@@ -9,6 +9,8 @@ use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\Client;
 
+use App\Http\Resources\ClientResource;
+
 
 class ClientController extends Controller
 {
@@ -32,7 +34,14 @@ class ClientController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $client = Client::findOrFail($id);
+
+        $sortedCredentials = new ClientResource($client->load('credentials.group', 'credentials.fieldType'));
+        dd($sortedCredentials);
+
+        return Inertia::render('Clients/Show', [
+            'client' => $sortedCredentials,
+        ]);
     }
 
     /**

@@ -42,13 +42,33 @@ export interface User {
     [key: string]: unknown; // This allows for additional properties...
 }
 
+export interface Group {
+  id: number
+  name: string
+  label: string
+  description: string | null
+}
+
+
+export interface Field {
+  id: number
+  label: string
+  name: string
+  type: string
+}
 
 export interface Type {
-  id: string
+  id: number
   name: string
+  fields?: Field[]
+}
+
+export interface Credential {
+  id: number
 }
 
 export interface Client {
-  id: string
+  id: number
   name: string
+  credentials?: Credential[]
 }
