@@ -17,6 +17,8 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('clients', ClientController::class);
+    Route::get('clients/{id}/credentials', [ClientController::class, 'manageCredentials']);
+    
     Route::prefix('admin')->name('admin.')->group(function() {
 
         Route::prefix('settings')->name('settings.')->group(function(){    

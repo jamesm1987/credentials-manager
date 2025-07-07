@@ -36,6 +36,10 @@ const handleViewClient = (client: Client) => {
     router.get(`/clients/${client.id}`)
 };
 
+const handleManageCredentials = (client: Client) => {
+    router.get(`/clients/${client.id}/credentials`)
+};
+
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
       <div className="py-12">
@@ -62,7 +66,10 @@ const handleViewClient = (client: Client) => {
 
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <DataTable
-              columns={columns({ onViewClient: handleViewClient })}
+              columns={columns({ 
+                onViewClient: handleViewClient, 
+                onManageCredentials: handleManageCredentials 
+              })}
               data={clients}
               sorting={sorting}
               onSortingChange={setSorting}

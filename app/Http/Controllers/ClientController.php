@@ -37,9 +37,20 @@ class ClientController extends Controller
         $client = Client::findOrFail($id);
 
         $sortedCredentials = new ClientResource($client->load('credentials.group', 'credentials.fieldType'));
-        dd($sortedCredentials);
 
         return Inertia::render('Clients/Show', [
+            'client' => $sortedCredentials,
+        ]);
+    }
+
+        public function manageCredentials(string $id)
+    {
+        $client = Client::findOrFail($id);
+
+        $sortedCredentials = new ClientResource($client->load('credentials.group', 'credentials.fieldType'));
+        dd($sortedCredentials);
+
+        return Inertia::render('Clients/ManageCredentials', [
             'client' => $sortedCredentials,
         ]);
     }

@@ -5,7 +5,7 @@ import { Head } from "@inertiajs/react";
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem, Client } from '@/types';
 
-interface ShowProps {
+interface ManageCredentialsProps {
   client: Client[];
 }
 
@@ -16,7 +16,7 @@ const breadcrumbs: BreadcrumbItem[] = [
   },
 ];
 
-export default function Show({ client }: ShowProps) {
+export default function Show({ client }: ManageCredentialsProps) {
     console.log(client);
   return (
     <AppLayout breadcrumbs={breadcrumbs}>

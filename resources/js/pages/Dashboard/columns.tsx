@@ -6,8 +6,6 @@ import type { ColumnDef } from '@tanstack/react-table';
 import { MoreHorizontal } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,7 +15,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export const columns = ({ onViewClient }: { onViewClient: (client: Client) => void }): ColumnDef<Client>[] => [
+export const columns = ({ 
+  onViewClient, onManageCredentials 
+}: { 
+  onViewClient: (client: Client) => void; 
+  onManageCredentials: (client: Client) => void;
+}): ColumnDef<Client>[] => [
   {
     accessorKey: 'name',
     header: 'Name',
@@ -41,6 +44,10 @@ export const columns = ({ onViewClient }: { onViewClient: (client: Client) => vo
             <DropdownMenuItem
               onClick={() => onViewClient(client)}>
               View
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => onManageCredentials(client)}>
+              Manage Credentials
             </DropdownMenuItem>
             <DropdownMenuItem>Edit</DropdownMenuItem>
             <DropdownMenuItem className="text-red-500">Delete</DropdownMenuItem>
