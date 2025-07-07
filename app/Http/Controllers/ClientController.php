@@ -7,9 +7,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
-use App\Models\Client;
+use App\Models\{Client, Group};
 
-use App\Http\Resources\ClientResource;
+use App\Http\Resources\CredentialsGroupedResource;
 
 
 class ClientController extends Controller
@@ -46,12 +46,13 @@ class ClientController extends Controller
         public function manageCredentials(string $id)
     {
         $client = Client::findOrFail($id);
-
-        $sortedCredentials = new ClientResource($client->load('credentials.group', 'credentials.fieldType'));
-        dd($sortedCredentials);
+        $groups = Group::all();
+        $credentials = $client->credentials()->with(['group', 'fieldType'])->get();
 
         return Inertia::render('Clients/ManageCredentials', [
-            'client' => $sortedCredentials,
+            'client' => $client,
+            'credentials' => new CredentialsGroupedResource($credentials),
+            'groups' => $groups
         ]);
     }
 
