@@ -1,9 +1,10 @@
+
 "use client";
 
 import * as React from "react";
 import { Head } from "@inertiajs/react";
 import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem, Client, Group } from '@/types';
+import { type BreadcrumbItem, Client, Group, CredentialsByGroup } from '@/types';
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -26,7 +27,7 @@ import {
 interface ManageCredentialsProps {
   client: Client[];
   groups: Group[];
-  credentials: Credential[];
+  credentials: CredentialsByGroup[];
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -37,9 +38,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function ManageCredentials({ client, groups, credentials }: ManageCredentialsProps) {
-  console.log(client);
-  console.log(credentials);
-  console.log(groups);
+  const groupNames = Object.keys(credentials.data);
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
       <div className="py-12">
@@ -48,43 +47,45 @@ export default function ManageCredentials({ client, groups, credentials }: Manag
 
 
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-            
-             <Tabs defaultValue={groups[0].name}>
-              <TabsList>
-                {groups.map((group) => (
-                  <TabsTrigger key={group.name} value={group.name}>
-                  {group.label}
-                  </TabsTrigger>
+    
+          <Tabs defaultValue={groupNames[0]}>
+            <TabsList>
+              {groupNames.map((group) => (
+                <TabsTrigger key={group} value={group}>
+                  {group}
+                </TabsTrigger>
               ))}
-              </TabsList>
-              {groups.map((group) => (
-                <TabsContent key={group.name} value={group.name}>
-                  <Card>
+            </TabsList>
+
+            {groupNames.map((groupName) => (
+              <TabsContent key={groupName} value={groupName}>
+                {Object.entries(credentials.data[groupName]).map(([typeName, fields]) => (
+                  <Card key={typeName}>
                     <CardHeader>
-                      <CardTitle>{ group.label }</CardTitle>
+                      <CardTitle>{typeName}</CardTitle>
                       <CardDescription>
-                        Make changes to your account here. Click save when you&apos;re
-                        done.
+                        Edit your {typeName} credentials below.
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="grid gap-6">
-                      <div className="grid gap-3">
-                        <Label htmlFor="tabs-demo-name">Name</Label>
-                        <Input id="tabs-demo-name" defaultValue="Pedro Duarte" />
-                      </div>
-                      <div className="grid gap-3">
-                        <Label htmlFor="tabs-demo-username">Username</Label>
-                        <Input id="tabs-demo-username" defaultValue="@peduarte" />
-                      </div>
+                      {fields.map((field) => (
+                        <div className="grid gap-3" key={field.id}>
+                          <Label htmlFor={`field-${field.id}`}>{field.field_type}</Label>
+                          <Input
+                            id={`field-${field.id}`}
+                            defaultValue={field.value}
+                          />
+                        </div>
+                      ))}
                     </CardContent>
                     <CardFooter>
                       <Button>Save changes</Button>
                     </CardFooter>
                   </Card>
-                </TabsContent>
-              ))}
-              
-            </Tabs>
+                ))}
+              </TabsContent>
+            ))}
+          </Tabs>
           </div>
         </div>
       </div>

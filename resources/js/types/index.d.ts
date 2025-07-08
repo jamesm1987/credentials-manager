@@ -67,6 +67,14 @@ export interface Credential {
   id: number
 }
 
+interface CredentialsByType {
+  [typeName: string]: Field[];
+}
+
+interface CredentialsByGroup {
+  [groupName: string]: CredentialsByType;
+}
+
 export interface Client {
   id: number
   name: string

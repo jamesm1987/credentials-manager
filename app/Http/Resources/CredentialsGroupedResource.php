@@ -7,11 +7,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class CredentialsGroupedResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
     public function toArray(Request $request): array
     {
         return $this->groupBy(fn($cred) => $cred->group->name ?? 'Ungrouped')
@@ -19,16 +14,14 @@ class CredentialsGroupedResource extends JsonResource
                 return [
                     $groupName => $groupCredentials
                         ->groupBy(fn($cred) => $cred->fieldType->type->name ?? 'Unknown')
-                        ->mapWithKeys(function ($typeCredentials, $typeName) {
-                            // Merge all key-value pairs from each credential
-                            $fields = [];
-
-                            foreach ($typeCredentials as $cred) {
-                                $key = $cred->fieldType->field->name ?? 'field';
-                                $fields[$key] = $cred->value;
-                            }
-
-                            return [$typeName => $fields];
+                        ->map(function ($typeCredentials) {
+                            return $typeCredentials->map(function ($cred) {
+                                return [
+                                    'id' => $cred->id,
+                                    'field_type' => $cred->fieldType->field->name ?? 'field',
+                                    'value' => $cred->value,
+                                ];
+                            })->values();
                         })
                         ->toArray(),
                 ];
