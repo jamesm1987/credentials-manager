@@ -36,10 +36,10 @@ class ClientController extends Controller
     {
         $client = Client::findOrFail($id);
 
-        $sortedCredentials = new ClientResource($client->load('credentials.group', 'credentials.fieldType'));
+        $credentials = $client->credentials()->with(['group', 'fieldType'])->get();
 
         return Inertia::render('Clients/Show', [
-            'client' => $sortedCredentials,
+            'client' => $credentials,
         ]);
     }
 
